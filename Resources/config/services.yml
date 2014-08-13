@@ -1,0 +1,7 @@
+parameters:
+#    brix_brix.example.class: Brix\BrixBundle\Example
+
+services:
+#    brix_brix.example:
+#        class: %brix_brix.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

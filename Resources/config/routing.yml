@@ -1,0 +1,5 @@
+brix_page:
+    path:     /{url}
+    defaults: { _controller: BrixCoreBundle:Page:loadPage }
+    requirements:
+        url: ".+"
