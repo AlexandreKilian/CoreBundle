@@ -51,6 +51,12 @@ class Page
     private $type;
 
     /**
+     * @ORM\Column(name="entity", type="integer", nullable=true)
+     *
+     */
+     private $entity;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -163,10 +169,33 @@ class Page
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Set entity
+     *
+     * @param integer $entity
+     * @return Page
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+
+        return $this;
+    }
+
+    /**
+     * Get entity
+     *
+     * @return integer 
+     */
+    public function getEntity()
+    {
+        return $this->entity;
     }
 }

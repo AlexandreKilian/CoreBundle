@@ -14,6 +14,11 @@ class PageController extends Controller
 
         $pageType = $page->getType();
 
+        if($pageType->getModel() && $entity = $em->getRepository($pageType->getModel())->find($page->getEntity())){
+
+            return $this->render($pageType->getTemplate(),array('page'=>$page,'entity'=>$entity));
+        }
+
         return $this->render($pageType->getTemplate(),array('page'=>$page));
       } else{
         return new Response("404 - Page not found");

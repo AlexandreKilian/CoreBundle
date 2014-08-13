@@ -35,12 +35,25 @@ class ListEntitiesCommand extends ContainerAwareCommand
         }
 
         foreach($config['templates']['widgets'] as $name => $data){
-          $widget = new WidgetType();
+
+          if(!$widget = $em->getRepository("BrixCoreBundle:WidgetType")->findOneBy(array("name"=>$name)))$widget = new WidgetType();
+
           $widget->setName($name);
           $widget->setTemplate($data['template']);
 
           $widget->setModel($entities[$data['entity']]['class']);
           $em->persist($widget);
+        }
+
+        foreach($config['templates']['pages'] as $name => $data){
+          if(!$page = $em->getRepository("BrixCoreBundle:PageType")->findOneBy(array("name"=>$name)))$page = new PageType();
+          $page->setName($name);
+          $page->setTemplate($data['template']);
+
+          if(isset($data['entity']))$page->setModel($entities[$data['entity']]['class']);
+          if(isset($data['blocks']))$page->setBlocks($data['blocks']);
+
+          $em->persist($page);
         }
 
         $em->flush();

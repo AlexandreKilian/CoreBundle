@@ -42,6 +42,16 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('entity')->isRequired()->end()
                     ->end()
                     ->end()
+                  ->end()
+                  ->arrayNode('pages')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                      ->children()
+                        ->scalarNode('template')->isRequired()->end()
+                        ->scalarNode('entity')->end()
+                        ->arrayNode('blocks')->prototype('scalar')->end()
+                    ->end()
+                    ->end()
                 ->end()
             ->end();
 

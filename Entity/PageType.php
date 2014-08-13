@@ -35,6 +35,18 @@ class PageType
      */
     private $template;
 
+    /**
+     * @ORM\Column(name="model", type="string", nullable=true)
+     *
+     */
+     private $model;
+
+     /**
+      * @ORM\Column(name="blocks", type="array", nullable=true)
+      *
+      */
+      private $blocks;
+
 
     /**
      * Get id
@@ -108,10 +120,79 @@ class PageType
     /**
      * Get template
      *
-     * @return string 
+     * @return string
      */
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    /**
+     * Set entity
+     *
+     * @param string $entity
+     * @return PageType
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+
+        return $this;
+    }
+
+    /**
+     * Get entity
+     *
+     * @return string
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * Set model
+     *
+     * @param string $model
+     * @return PageType
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set blocks
+     *
+     * @param array $blocks
+     * @return PageType
+     */
+    public function setBlocks($blocks)
+    {
+        $this->blocks = $blocks;
+
+        return $this;
+    }
+
+    /**
+     * Get blocks
+     *
+     * @return array 
+     */
+    public function getBlocks()
+    {
+        return $this->blocks;
     }
 }
