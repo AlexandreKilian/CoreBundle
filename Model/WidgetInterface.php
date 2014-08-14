@@ -12,8 +12,6 @@ interface WidgetInterface
 {
 
 
-    public function setWidget(\Brix\CmsBundle\Entity\Widget $block = null);
-
-    public function getWidget();
+    public function getForm();
 
 }

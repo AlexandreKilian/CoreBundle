@@ -3,6 +3,7 @@
 namespace Brix\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Table(name="brix_core_widget")
@@ -24,6 +25,7 @@ class Widget
      *
      * @ORM\ManyToOne(targetEntity="Block", inversedBy="widgets")
      * @ORM\JoinColumn(name="widget_block")
+     * @JMS\Exclude
      */
     private $block;
 
@@ -36,10 +38,11 @@ class Widget
     private $type;
 
     /**
-     * @ORM\Column(name="entity", type="integer")
-     *
+     * @ORM\Column(name="entity", type="integer", nullable=true)
      */
      private $entity;
+
+     public $data;
 
     /**
      * Get id
@@ -118,5 +121,9 @@ class Widget
     public function getEntity()
     {
         return $this->entity;
+    }
+
+    public function getData(){
+      return $this->data;
     }
 }

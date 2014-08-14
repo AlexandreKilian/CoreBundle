@@ -3,6 +3,7 @@
 namespace Brix\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 
 /**
@@ -27,6 +28,7 @@ class Block
      *
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="blocks")
      * @ORM\JoinColumn(name="block_page")
+     * @JMS\Exclude
      */
     private $page;
 
@@ -43,6 +45,28 @@ class Block
      * @ORM\OneToMany(targetEntity="Widget", mappedBy="block")
      */
     private $widgets;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="repeater",type="boolean")
+     *
+     */
+     private $repeater;
+
+     /**
+      * @var string
+      *
+      * @ORM\ManyToOne(targetEntity="WidgetType")
+      * @ORM\JoinColumn(name="repeater_widget", nullable=true)
+      */
+     private $repeaterWidget;
+
+     /**
+      *
+      * @ORM\Column(name="repeater_limit",type="integer", nullable=true)
+      */
+      private $repeaterLimit;
 
     /**
      * Constructor
@@ -134,10 +158,83 @@ class Block
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
+    }
+
+    public function __toString(){
+      return $this->getName();
+    }
+
+    /**
+     * Set repeater
+     *
+     * @param boolean $repeater
+     * @return Block
+     */
+    public function setRepeater($repeater)
+    {
+        $this->repeater = $repeater;
+
+        return $this;
+    }
+
+    /**
+     * Get repeater
+     *
+     * @return boolean 
+     */
+    public function getRepeater()
+    {
+        return $this->repeater;
+    }
+
+    /**
+     * Set repeaterLimit
+     *
+     * @param integer $repeaterLimit
+     * @return Block
+     */
+    public function setRepeaterLimit($repeaterLimit)
+    {
+        $this->repeaterLimit = $repeaterLimit;
+
+        return $this;
+    }
+
+    /**
+     * Get repeaterLimit
+     *
+     * @return integer 
+     */
+    public function getRepeaterLimit()
+    {
+        return $this->repeaterLimit;
+    }
+
+    /**
+     * Set repeaterWidget
+     *
+     * @param \Brix\CoreBundle\Entity\WidgetType $repeaterWidget
+     * @return Block
+     */
+    public function setRepeaterWidget(\Brix\CoreBundle\Entity\WidgetType $repeaterWidget = null)
+    {
+        $this->repeaterWidget = $repeaterWidget;
+
+        return $this;
+    }
+
+    /**
+     * Get repeaterWidget
+     *
+     * @return \Brix\CoreBundle\Entity\WidgetType 
+     */
+    public function getRepeaterWidget()
+    {
+        return $this->repeaterWidget;
     }
 }

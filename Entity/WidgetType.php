@@ -138,10 +138,14 @@ class WidgetType
     /**
      * Get template
      *
-     * @return string 
+     * @return string
      */
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    public function __toString(){
+      return $this->getTemplate();
     }
 }

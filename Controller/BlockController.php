@@ -11,7 +11,18 @@ class BlockController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         if($block = $em->getRepository('BrixCoreBundle:Block')->findOneBy(array('page'=>$page,'name'=>$blockname))){
+          if($block->getRepeater()){
+
+            $qb = $repository = $em->getRepository($block->getRepeaterWidget()->getModel())->createQueryBuilder('w');
+            $query = $qb->setMaxResults($block->getRepeaterLimit())->getQuery();
+            $entities = $query->getResult();
+
+            return $this->render('BrixCoreBundle:Default:repeater_block.html.twig', array('widget'=>$block->getRepeaterWidget(),'entities' => $entities));
+          }
+
+          $widgets = $block->getWidgets();
           return $this->render('BrixCoreBundle:Default:block.html.twig', array('block' => $block));
+
         } else {
           return new Response("404 - Block not found");
         }

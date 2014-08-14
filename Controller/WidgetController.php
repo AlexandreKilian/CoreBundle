@@ -9,19 +9,24 @@ class WidgetController extends Controller
 {
     public function renderWidgetAction($widget)
     {
-
-
         $em = $this->getDoctrine()->getManager();
-        // $widget = $em->getRepository("BrixCoreBundle:Widget")->find($id);
         $widgetType = $widget->getType();
-        if($entity = $em->getRepository($widgetType->getModel())->find($widget->getEntity())){
+
+        // $class = $em->getRepository($widgetType->getModel())->getClassName();
+
+        if($widget->getEntity() && $entity = $em->getRepository($widgetType->getModel())->find($widget->getEntity())){
 
             return $this->render($widgetType->getTemplate(),array('entity'=>$entity));
           } else {
             return new Response("404 - Entity not found");
           }
 
+    }
 
+    public function renderRepeaterWidgetAction($widget,$entity)
+    {
+
+            return $this->render($widget->getTemplate(),array('entity'=>$entity));
 
 
     }

@@ -1,0 +1,6 @@
+{% for entity in entities %}
+{{ render(controller('BrixCoreBundle:Widget:renderRepeaterWidget', {
+    widget: widget,
+    entity: entity
+})) }}
+{% endfor %}

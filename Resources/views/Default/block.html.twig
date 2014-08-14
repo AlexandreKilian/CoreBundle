@@ -1,4 +1,4 @@
-{% for widget in block.widgets %}
+{% for widget in widgets %}
 {{ render(controller('BrixCoreBundle:Widget:renderWidget', {
     widget: widget
 })) }}
