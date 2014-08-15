@@ -21,10 +21,23 @@ class BlockController extends Controller
           }
 
           $widgets = $block->getWidgets();
-          return $this->render('BrixCoreBundle:Default:block.html.twig', array('block' => $block));
+          return $this->render('BrixCoreBundle:Default:block.html.twig', array('widgets' => $widgets));
 
         } else {
           return new Response("404 - Block not found");
         }
+    }
+
+    public function renderRepeaterAction($widget, $limit, $settings = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $widget = $em->getRepository("BrixCoreBundle:WidgetType")->findOneBy(array('name'=>$widget));
+
+        $qb = $repository = $em->getRepository($widget->getModel())->createQueryBuilder('w');
+        $query = $qb->setMaxResults($limit)->getQuery();
+        $entities = $query->getResult();
+
+        return $this->render('BrixCoreBundle:Default:repeater_block.html.twig', array('widget'=>$widget,'entities' => $entities));
     }
 }
