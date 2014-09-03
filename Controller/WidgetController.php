@@ -12,7 +12,6 @@ class WidgetController extends Controller
         $em = $this->getDoctrine()->getManager();
         $widgetType = $widget->getType();
 
-        // $class = $em->getRepository($widgetType->getModel())->getClassName();
 
         if($widget->getEntity() && $entity = $em->getRepository($widgetType->getModel())->find($widget->getEntity())){
 

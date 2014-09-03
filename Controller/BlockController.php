@@ -21,7 +21,9 @@ class BlockController extends Controller
           }
 
           $widgets = $block->getWidgets();
+
           return $this->render('BrixCoreBundle:Default:block.html.twig', array('widgets' => $widgets));
+
 
         } else {
           return new Response("404 - Block not found");
