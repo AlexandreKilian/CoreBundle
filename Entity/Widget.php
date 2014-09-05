@@ -22,8 +22,6 @@ class Widget extends BlockElement
      */
     private $id;
 
-
-
     /**
      * @var string
      *
@@ -38,9 +36,6 @@ class Widget extends BlockElement
      private $entity;
 
      public $data;
-
-    
-
 
     /**
      * Get id

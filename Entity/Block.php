@@ -5,8 +5,8 @@ namespace Brix\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
-use Brix\CoreBundle\Model\BlockElement;
 
+use Brix\CoreBundle\Model\BlockElement;
 
 /**
  * Block
@@ -14,7 +14,9 @@ use Brix\CoreBundle\Model\BlockElement;
  * @ORM\Table(name="brix_core_block")
  * @ORM\Entity
  */
+
 class Block extends BlockElement
+
 {
     /**
      * @var integer
@@ -77,7 +79,6 @@ class Block extends BlockElement
       */
       private $repeaterLimit;
 
-
     /**
      * Constructor
      */
@@ -86,6 +87,8 @@ class Block extends BlockElement
         $this->widgets = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subblocks = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+
 
     /**
      * Get id
