@@ -1,0 +1,3 @@
+brix:
+    entities:
+        - page: Brix\CoreBundle\Entity\Page

@@ -1,0 +1,11 @@
+{% for widget in widgets %}
+  {{ render(controller('BrixCoreBundle:Widget:renderWidget', {
+    widget: widget
+  })) }}
+{% endfor %}
+
+{% for subblock in subblocks %}
+  {{ render(controller('BrixCoreBundle:Block:renderBlockElement', {
+    block: subblock
+  })) }}
+{% endfor %}
