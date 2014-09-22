@@ -15,9 +15,9 @@ class WidgetController extends Controller
 
         if($widget->getEntity() && $entity = $em->getRepository($widgetType->getModel())->find($widget->getEntity())){
 
-            return $this->render($widgetType->getTemplate(),array('entity'=>$entity));
+            return $this->render($widgetType->getTemplate(),array('widget'=>$widget,'entity'=>$entity));
           } else {
-            return new Response("404 - Entity not found");
+            return new Response("");
           }
 
     }
@@ -25,7 +25,7 @@ class WidgetController extends Controller
     public function renderRepeaterWidgetAction($widget,$entity)
     {
 
-            return $this->render($widget->getTemplate(),array('entity'=>$entity));
+            return $this->render($widget->getTemplate(),array('widget'=>$widget,'entity'=>$entity));
 
 
     }

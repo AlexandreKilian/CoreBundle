@@ -1,11 +1,15 @@
-{% for widget in widgets %}
+{% if ngAdmin %}
+<block name="{{block.name}}" page="{{block.page.id}}" blockid="{{block.id}}"></block>
+{% else %}
+{% for element in children %}
+{% if element.elementType == 'widget' %}
   {{ render(controller('BrixCoreBundle:Widget:renderWidget', {
-    widget: widget
+    widget: element
   })) }}
-{% endfor %}
-
-{% for subblock in subblocks %}
+{% else %}
   {{ render(controller('BrixCoreBundle:Block:renderBlockElement', {
-    block: subblock
+    block: element
   })) }}
+  {% endif %}
 {% endfor %}
+{% endif %}

@@ -189,10 +189,14 @@ class PageType
     /**
      * Get blocks
      *
-     * @return array 
+     * @return array
      */
     public function getBlocks()
     {
         return $this->blocks;
+    }
+
+    public function __toString(){
+      return strval($this->id);
     }
 }

@@ -7,15 +7,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
-class WidgetForm extends AbstractType{
+class PageForm extends AbstractType{
 
   public function buildForm(FormBuilderInterface $builder, array $options){
 
     $builder
-        ->add('block',null,array('required'=>false))
         ->add('type',null,array('required'=>false))
-        ->add('order',null,array('required'=>false))
+        ->add('name')
+        ->add('url')
         ->add('entity',null,array('required'=>false))
+        ->add('parent',null,array('required'=>false))
         ;
 
   }
@@ -27,7 +28,7 @@ class WidgetForm extends AbstractType{
   public function setDefaultOptions(OptionsResolverInterface $resolver)
 {
     $resolver->setDefaults(array(
-        'data_class' => 'Brix\CoreBundle\Entity\Widget',
+        'data_class' => 'Brix\CoreBundle\Entity\Page',
         'csrf_protection' => false
     ));
   }

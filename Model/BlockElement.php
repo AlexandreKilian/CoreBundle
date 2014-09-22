@@ -17,16 +17,21 @@ abstract class BlockElement
      *
      * @ORM\ManyToOne(targetEntity="Brix\CoreBundle\Entity\Block", inversedBy="widgets")
      * @ORM\JoinColumn(name="element_block", nullable=true)
-     * @JMS\Exclude
      */
     protected $block;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="order",type="integer", nullable=true)
+     * @ORM\Column(name="sort",type="integer", nullable=true)
      */
     protected $order;
+
+
+    /**
+    * @JMS\VirtualProperty
+    */
+    abstract function getElementType();
 
 
     /**
@@ -37,8 +42,7 @@ abstract class BlockElement
      */
     public function setBlock(Block $block = null)
     {
-        $this->block = $block;
-
+        if($block != null)$this->block = $block;
         return $this;
     }
 
