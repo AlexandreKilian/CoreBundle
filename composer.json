@@ -1,6 +1,6 @@
 
 {
-	"name": "brix/cms-core-bundle",
+	"name": "brix/core-bundle",
 	"type": "symfony-bundle",
 	"description": "The core for the brix cms",
 	"keywords": ["brix","cms", "core","symfony"],
