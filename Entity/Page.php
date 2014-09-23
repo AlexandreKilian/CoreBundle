@@ -6,366 +6,394 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Page
- *
- * @ORM\Table(name="brix_core_page")
- * @ORM\Entity
- */
+* Page
+*
+* @ORM\Table(name="brix_core_page")
+* @ORM\Entity
+*/
 class Page
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"details","list"})
-     */
-    private $id;
+  /**
+  * @var integer
+  *
+  * @ORM\Column(name="id", type="integer")
+  * @ORM\Id
+  * @ORM\GeneratedValue(strategy="AUTO")
+  * @JMS\Groups({"details","list"})
+  */
+  private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     * @JMS\Groups({"details","list"})
-     */
-    private $name;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="name", type="string", length=255)
+  * @JMS\Groups({"details","list"})
+  */
+  private $name;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="url", type="string", length=255)
-     * @JMS\Groups({"details","list"})
-     */
-    private $url;
+  /**
+  * @var string
+  *
+  * @ORM\Column(name="url", type="string", length=255, nullable=true)
+  * @JMS\Groups({"details","list"})
+  */
+  private $url;
 
-    /**
-     * @var string
-     *
-     * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
-     * @JMS\Groups({"details","list"})
-     */
-     private $children;
+  /**
+  * @var string
+  *
+  * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
+  * @JMS\Groups({"details","list"})
+  */
+  private $children;
 
-     /**
-      *
-      * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
-      * @ORM\JoinColumn(name="parent_id", nullable=true)
-      * @JMS\Groups({"list","details"})
-      */
-      private $parent;
+  /**
+  *
+  * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
+  * @ORM\JoinColumn(name="parent_id", nullable=true)
+  * @JMS\Groups({"list","details"})
+  */
+  private $parent;
 
-      /**
-       *
-       * @ORM\ManyToOne(targetEntity="Page")
-       * @ORM\JoinColumn(name="original_id", nullable=true)
-       * @JMS\Groups({"details"})
-       */
-       private $original;
+  /**
+  *
+  * @ORM\ManyToOne(targetEntity="Page")
+  * @ORM\JoinColumn(name="original_id", nullable=true)
+  * @JMS\Groups({"details"})
+  */
+  private $original;
 
-      /**
-       *
-       * @ORM\ManyToOne(targetEntity="Language")
-       * @ORM\JoinColumn(name="language_id", nullable=true)
-       * @JMS\Groups({"details"})
-       */
-       private $language;
+  /**
+  *
+  * @ORM\ManyToOne(targetEntity="Language")
+  * @ORM\JoinColumn(name="language_id", nullable=true)
+  * @JMS\Groups({"details"})
+  */
+  private $language;
 
 
+  /**
+  * @ORM\Column(name="homepage",type="boolean")
+  */
+  private $isHomepage = false;
 
-    /**
-     * @var string
-     *
-     * @ORM\OneToMany(targetEntity="Block", mappedBy="page")
-     * @JMS\Groups({"details"})
-     */
-     private $blocks;
 
-    /**
-     * @var string
-     *
-     * @ORM\ManyToOne(targetEntity="PageType")
-     * @ORM\JoinColumn(name="page_type")
-     * @JMS\Accessor(getter="getTypeId")
-     * @JMS\Type("integer")
-     * @JMS\Groups({"details"})
-     */
-    private $type;
+  /**
+  * @var string
+  *
+  * @ORM\OneToMany(targetEntity="Block", mappedBy="page")
+  * @JMS\Groups({"details"})
+  */
+  private $blocks;
 
-    /**
-     * @ORM\Column(name="entity", type="integer", nullable=true)
-     *
-     */
-     private $entity;
+  /**
+  * @var string
+  *
+  * @ORM\ManyToOne(targetEntity="PageType")
+  * @ORM\JoinColumn(name="page_type")
+  * @JMS\Accessor(getter="getTypeId")
+  * @JMS\Type("integer")
+  * @JMS\Groups({"details"})
+  */
+  private $type;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->blocks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+  /**
+  * @ORM\Column(name="entity", type="integer", nullable=true)
+  *
+  */
+  private $entity;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+  /**
+  * Constructor
+  */
+  public function __construct()
+  {
+    $this->blocks = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+  }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Page
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
+  /**
+  * Get id
+  *
+  * @return integer
+  */
+  public function getId()
+  {
+    return $this->id;
+  }
 
-        return $this;
-    }
+  /**
+  * Set name
+  *
+  * @param string $name
+  * @return Page
+  */
+  public function setName($name)
+  {
+    $this->name = $name;
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+    return $this;
+  }
 
-    /**
-     * Add blocks
-     *
-     * @param \Brix\CoreBundle\Entity\Block $blocks
-     * @return Page
-     */
-    public function addBlock(\Brix\CoreBundle\Entity\Block $blocks)
-    {
-        $this->blocks[] = $blocks;
+  /**
+  * Get name
+  *
+  * @return string
+  */
+  public function getName()
+  {
+    return $this->name;
+  }
 
-        return $this;
-    }
+  /**
+  * Add blocks
+  *
+  * @param \Brix\CoreBundle\Entity\Block $blocks
+  * @return Page
+  */
+  public function addBlock(\Brix\CoreBundle\Entity\Block $blocks)
+  {
+    $this->blocks[] = $blocks;
 
-    /**
-     * Remove blocks
-     *
-     * @param \Brix\CoreBundle\Entity\Block $blocks
-     */
-    public function removeBlock(\Brix\CoreBundle\Entity\Block $blocks)
-    {
-        $this->blocks->removeElement($blocks);
-    }
+    return $this;
+  }
 
-    /**
-     * Get blocks
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBlocks()
-    {
-        return $this->blocks;
-    }
+  /**
+  * Remove blocks
+  *
+  * @param \Brix\CoreBundle\Entity\Block $blocks
+  */
+  public function removeBlock(\Brix\CoreBundle\Entity\Block $blocks)
+  {
+    $this->blocks->removeElement($blocks);
+  }
 
-    /**
-     * Set type
-     *
-     * @param \Brix\CoreBundle\Entity\PageType $type
-     * @return Page
-     */
-    public function setType(\Brix\CoreBundle\Entity\PageType $type = null)
-    {
-        $this->type = $type;
+  /**
+  * Get blocks
+  *
+  * @return \Doctrine\Common\Collections\Collection
+  */
+  public function getBlocks()
+  {
+    return $this->blocks;
+  }
 
-        return $this;
-    }
+  /**
+  * Set type
+  *
+  * @param \Brix\CoreBundle\Entity\PageType $type
+  * @return Page
+  */
+  public function setType(\Brix\CoreBundle\Entity\PageType $type = null)
+  {
+    $this->type = $type;
 
-    /**
-     * Get type
-     *
-     * @return \Brix\CoreBundle\Entity\PageType
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
+    return $this;
+  }
 
-    /**
-     * Set url
-     *
-     * @param string $url
-     * @return Page
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
+  /**
+  * Get type
+  *
+  * @return \Brix\CoreBundle\Entity\PageType
+  */
+  public function getType()
+  {
+    return $this->type;
+  }
 
-        return $this;
-    }
+  /**
+  * Set url
+  *
+  * @param string $url
+  * @return Page
+  */
+  public function setUrl($url)
+  {
+    $this->url = $url;
 
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
+    return $this;
+  }
 
-    /**
-     * Set entity
-     *
-     * @param integer $entity
-     * @return Page
-     */
-    public function setEntity($entity)
-    {
-        $this->entity = $entity;
+  /**
+  * Get url
+  *
+  * @return string
+  */
+  public function getUrl()
+  {
+    return $this->url;
+  }
 
-        return $this;
-    }
+  /**
+  * Set entity
+  *
+  * @param integer $entity
+  * @return Page
+  */
+  public function setEntity($entity)
+  {
+    $this->entity = $entity;
 
-    /**
-     * Get entity
-     *
-     * @return integer
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
+    return $this;
+  }
 
-    public function getTypeId(){
-      return $this->getType()->getId();
-    }
+  /**
+  * Get entity
+  *
+  * @return integer
+  */
+  public function getEntity()
+  {
+    return $this->entity;
+  }
 
-    /**
-     * Add children
-     *
-     * @param \Brix\CoreBundle\Entity\Page $children
-     * @return Page
-     */
-    public function addChild(\Brix\CoreBundle\Entity\Page $children)
-    {
-        $this->children[] = $children;
+  public function getTypeId(){
+    return $this->getType()->getId();
+  }
 
-        return $this;
-    }
+  /**
+  * Add children
+  *
+  * @param \Brix\CoreBundle\Entity\Page $children
+  * @return Page
+  */
+  public function addChild(\Brix\CoreBundle\Entity\Page $children)
+  {
+    $this->children[] = $children;
 
-    /**
-     * Remove children
-     *
-     * @param \Brix\CoreBundle\Entity\Page $children
-     */
-    public function removeChild(\Brix\CoreBundle\Entity\Page $children)
-    {
-        $this->children->removeElement($children);
-    }
+    return $this;
+  }
 
-    /**
-     * Get children
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
+  /**
+  * Remove children
+  *
+  * @param \Brix\CoreBundle\Entity\Page $children
+  */
+  public function removeChild(\Brix\CoreBundle\Entity\Page $children)
+  {
+    $this->children->removeElement($children);
+  }
 
-    /**
-     * Set parent
-     *
-     * @param \Brix\CoreBundle\Entity\Page $parent
-     * @return Page
-     */
-    public function setParent(\Brix\CoreBundle\Entity\Page $parent = null)
-    {
-        $this->parent = $parent;
+  /**
+  * Get children
+  *
+  * @return \Doctrine\Common\Collections\Collection
+  */
+  public function getChildren()
+  {
+    return $this->children;
+  }
 
-        return $this;
-    }
+  /**
+  * Set parent
+  *
+  * @param \Brix\CoreBundle\Entity\Page $parent
+  * @return Page
+  */
+  public function setParent(\Brix\CoreBundle\Entity\Page $parent = null)
+  {
+    $this->parent = $parent;
 
-    /**
-     * Get parent
-     *
-     * @return \Brix\CoreBundle\Entity\Page
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
+    return $this;
+  }
 
-    /**
-     * Set original
-     *
-     * @param \Brix\CoreBundle\Entity\Page $original
-     * @return Page
-     */
-    public function setOriginal(\Brix\CoreBundle\Entity\Page $original = null)
-    {
-        $this->original = $original;
+  /**
+  * Get parent
+  *
+  * @return \Brix\CoreBundle\Entity\Page
+  */
+  public function getParent()
+  {
+    return $this->parent;
+  }
 
-        return $this;
-    }
+  /**
+  * Set original
+  *
+  * @param \Brix\CoreBundle\Entity\Page $original
+  * @return Page
+  */
+  public function setOriginal(\Brix\CoreBundle\Entity\Page $original = null)
+  {
+    $this->original = $original;
 
-    /**
-     * Get original
-     *
-     * @return \Brix\CoreBundle\Entity\Page
-     */
-    public function getOriginal()
-    {
-        return $this->original;
-    }
+    return $this;
+  }
 
-    /**
-     * Set language
-     *
-     * @param \Brix\CoreBundle\Entity\Language $language
-     * @return Page
-     */
-    public function setLanguage(\Brix\CoreBundle\Entity\Language $language = null)
-    {
-        $this->language = $language;
+  /**
+  * Get original
+  *
+  * @return \Brix\CoreBundle\Entity\Page
+  */
+  public function getOriginal()
+  {
+    return $this->original;
+  }
 
-        return $this;
-    }
+  /**
+  * Set language
+  *
+  * @param \Brix\CoreBundle\Entity\Language $language
+  * @return Page
+  */
+  public function setLanguage(\Brix\CoreBundle\Entity\Language $language = null)
+  {
+    $this->language = $language;
 
-    /**
-     * Get language
-     *
-     * @return \Brix\CoreBundle\Entity\Language
-     */
-    public function getLanguage()
-    {
-        return $this->language;
-    }
+    return $this;
+  }
 
-    public function __toString(){
-      return strval($this->getId());
-    }
+  /**
+  * Get language
+  *
+  * @return \Brix\CoreBundle\Entity\Language
+  */
+  public function getLanguage()
+  {
+    return $this->language;
+  }
 
-    /**
-     * @JMS\VirtualProperty
-     * @JMS\Groups({"list"})
-     */
-    public function level(){
-      if($this->getParent() == null){
-        return 0;
-      } else {
-        $level = 1;
-        $parent = $this->getParent();
-        while($parent = $parent->getParent()){
-          $level++;
-        }
-        return $level;
+  public function __toString(){
+    return strval($this->getId());
+  }
+
+  /**
+  * @JMS\VirtualProperty
+  * @JMS\Groups({"list"})
+  */
+  public function level(){
+    if($this->getParent() == null){
+      return 0;
+    } else {
+      $level = 1;
+      $parent = $this->getParent();
+      while($parent = $parent->getParent()){
+        $level++;
       }
+      return $level;
+    }
+  }
+
+    /**
+     * Set isHomepage
+     *
+     * @param boolean $isHomepage
+     * @return Page
+     */
+    public function setIsHomepage($isHomepage)
+    {
+        $this->isHomepage = $isHomepage;
+
+        return $this;
+    }
+
+    /**
+     * Get isHomepage
+     *
+     * @return boolean
+     */
+    public function getIsHomepage()
+    {
+        return $this->isHomepage;
     }
 }

@@ -15,7 +15,7 @@ class WidgetForm extends AbstractType{
         ->add('block',null,array('required'=>false))
         ->add('type',null,array('required'=>false))
         ->add('order',null,array('required'=>false))
-        ->add('entity',null,array('required'=>false))
+        // ->add('entity',null,array('required'=>false))
         ;
 
   }

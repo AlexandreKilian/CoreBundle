@@ -1,3 +1,7 @@
+brix_home_page:
+    path:     /
+    defaults: { _controller: BrixCoreBundle:Page:loadHomePage }
+
 brix_page:
     path:     /{url}
     defaults: { _controller: BrixCoreBundle:Page:loadPage }

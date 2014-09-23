@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * Media
  *
- * @ORM\Table()
+ * @ORM\Table(name="brix_core_media")
  * @ORM\Entity
  */
 class Media

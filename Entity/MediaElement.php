@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MediaElement
  *
- * @ORM\Table()
+ * @ORM\Table(name="brix_core_media_element")
  * @ORM\Entity
  */
 class MediaElement
@@ -46,7 +46,7 @@ class MediaElement
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -69,7 +69,7 @@ class MediaElement
     /**
      * Get media
      *
-     * @return integer 
+     * @return integer
      */
     public function getMedia()
     {
@@ -92,7 +92,7 @@ class MediaElement
     /**
      * Get alt
      *
-     * @return string 
+     * @return string
      */
     public function getAlt()
     {
@@ -115,7 +115,7 @@ class MediaElement
     /**
      * Get classes
      *
-     * @return string 
+     * @return string
      */
     public function getClasses()
     {

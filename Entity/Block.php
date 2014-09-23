@@ -307,29 +307,6 @@ class Block extends BlockElement
   }
 
   /**
-  * Set block
-  *
-  * @param \Brix\CoreBundle\Entity\Block $block
-  * @return Block
-  */
-  public function setBlock(\Brix\CoreBundle\Entity\Block $block = null)
-  {
-    $this->block = $block;
-
-    return $this;
-  }
-
-  /**
-  * Get block
-  *
-  * @return \Brix\CoreBundle\Entity\Block
-  */
-  public function getBlock()
-  {
-    return $this->block;
-  }
-
-  /**
   * @JMS\VirtualProperty
   * @JMS\SerializedName("children")
   */
@@ -348,4 +325,6 @@ class Block extends BlockElement
     if($a->getOrder() == $b->getOrder()) return 0;
     return ($a->getOrder() > $b->getOrder()) ? 1:-1;
   }
+
+
 }
