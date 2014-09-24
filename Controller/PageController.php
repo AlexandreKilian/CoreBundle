@@ -54,7 +54,7 @@ class PageController extends Controller
         if($page = $em->getRepository("BrixCoreBundle:Page")->findOneBy(array('url'=>null,'language'=>$language))){
             return $this->renderpage($page);
         } elseif($page = $em->getRepository("BrixCoreBundle:Page")->findOneBy(array('url'=>null))){
-
+            return $this->renderpage($page);
         }else{
             return $this->go404();
         }

@@ -6,11 +6,11 @@ brix_home_page_locale:
 
 brix_page:
     path:     /{_locale}/{url}
-    defaults: { _controller: BrixCoreBundle:Page:loadPage, _locale: false }
+    defaults: { _controller: BrixCoreBundle:Page:loadPage, url: false }
     requirements:
         url: ".+"
         _locale: en|fr|de
-        
+
 brix_home_page:
     path:     /
     defaults: { _controller: BrixCoreBundle:Page:loadHomePage }
