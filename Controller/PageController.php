@@ -14,6 +14,10 @@ class PageController extends Controller
         $locale = $request->getLocale();
         $em = $this->getDoctrine()->getManager();
 
+        if(!$url){
+            return $this->forward('BrixCoreBundle:Page:loadHomePage');
+        }
+
 
         $language = $em->getRepository('BrixCoreBundle:Language')->findOneBy(array('locale'=>$locale));
 
