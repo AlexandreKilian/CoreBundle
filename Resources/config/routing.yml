@@ -1,9 +1,25 @@
+brix_home_page_locale:
+    path:     /{_locale}
+    defaults: { _controller: BrixCoreBundle:Page:loadHomePage }
+    requirements:
+        _locale: en|fr|de
+
+brix_page:
+    path:     /{_locale}/{url}
+    defaults: { _controller: BrixCoreBundle:Page:loadPage, _locale: false }
+    requirements:
+        url: ".+"
+        _locale: en|fr|de
+        
 brix_home_page:
     path:     /
     defaults: { _controller: BrixCoreBundle:Page:loadHomePage }
 
-brix_page:
+
+
+brix_page_simple:
     path:     /{url}
     defaults: { _controller: BrixCoreBundle:Page:loadPage }
-    requirements:
-        url: ".+"
+#     requirements:
+#         url: ".+"
+#         _locale: en|fr|de

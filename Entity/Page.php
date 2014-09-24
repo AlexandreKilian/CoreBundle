@@ -67,7 +67,9 @@ class Page
   *
   * @ORM\ManyToOne(targetEntity="Language")
   * @ORM\JoinColumn(name="language_id", nullable=true)
-  * @JMS\Groups({"details"})
+  * @JMS\Accessor(getter="getLanguageArray")
+  * @JMS\Groups({"details","list"})
+  * @JMS\Type("array")
   */
   private $language;
 
@@ -395,5 +397,11 @@ class Page
     public function getIsHomepage()
     {
         return $this->isHomepage;
+    }
+
+    public function getLanguageArray(){
+        if($this->getLanguage())return $this->getLanguage()->toArray();
+        return null;
+
     }
 }

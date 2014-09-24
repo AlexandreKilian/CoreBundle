@@ -17,6 +17,8 @@ class PageForm extends AbstractType{
         ->add('url')
         ->add('entity',null,array('required'=>false))
         ->add('parent',null,array('required'=>false))
+        ->add('original',null,array('required'=>false))
+        ->add('language',null,array('required'=>false))
         ;
 
   }
