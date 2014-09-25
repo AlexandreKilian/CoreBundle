@@ -75,6 +75,18 @@ class Block extends BlockElement
   */
   private $repeaterWidget;
 
+
+  /**
+  * @var string
+  *
+  * @ORM\ManyToOne(targetEntity="BlockType")
+  * @ORM\JoinColumn(name="block_type", nullable=true)
+  * @JMS\Accessor(getter="getTypeId")
+  * @JMS\Type("integer")
+  * @JMS\Groups({"details"})
+  */
+  private $type;
+
   /**
   *
   * @ORM\Column(name="repeater_limit",type="integer", nullable=true)
@@ -326,5 +338,35 @@ class Block extends BlockElement
     return ($a->getOrder() > $b->getOrder()) ? 1:-1;
   }
 
+
+
+    /**
+     * Set type
+     *
+     * @param \Brix\CoreBundle\Entity\BlockType $type
+     * @return Block
+     */
+    public function setType(\Brix\CoreBundle\Entity\BlockType $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \Brix\CoreBundle\Entity\BlockType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function getTypeId()
+    {
+        if($this->getType())return $this->getType()->getId();
+        return null;
+    }
 
 }

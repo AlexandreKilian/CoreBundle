@@ -1,0 +1,21 @@
+{% if ngAdmin %}
+{% if subblock %}
+{% verbatim %}
+<widget ng-repeat="element in block.children" widgetid="{{element.id}}" typeid="{{element.type.id}}" ></widget>
+{% endverbatim %}
+{% else %}
+<block name="{{block.name}}" page="{{block.page.id}}" blockid="{{block.id}}"></block>
+{% endif %}
+{% else %}
+    {% for element in children %}
+    {% if element.elementType == 'widget' %}
+    {{ render(controller('BrixCoreBundle:Widget:renderWidget', {
+    widget: element
+    })) }}
+    {% else %}
+    {{ render(controller('BrixCoreBundle:Block:renderBlockElement', {
+    block: element
+    })) }}
+    {% endif %}
+{% endfor %}
+{% endif %}

@@ -64,6 +64,10 @@ class BlockController extends Controller
       $widgets = $block->getWidgets();
       $subblocks = $block->getSubblocks();
 
+      if($block->getType()){
+          return $this->render($block->getType()->getTemplate(), array('subblock'=>false,'block'=>$block,'children' => $block->getChildren(), 'ngAdmin'=>$this->get('security.context')->isGranted('ROLE_ADMIN')));
+      }
+
       return $this->render('BrixCoreBundle:Default:block.html.twig', array('block'=>$block,'children' => $block->getChildren(), 'ngAdmin'=>$this->get('security.context')->isGranted('ROLE_ADMIN')));
     }
 }
