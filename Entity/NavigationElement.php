@@ -73,6 +73,20 @@ class NavigationElement
      */
     private $url;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="classes", type="string",length=255)
+     */
+    private $classes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dom_id", type="string",length=255)
+     */
+    private $domid;
+
 
     /**
      * Get id
@@ -305,5 +319,51 @@ class NavigationElement
         } else{
             return $this->getName();
         }
+    }
+
+    /**
+     * Set classes
+     *
+     * @param string $classes
+     * @return NavigationElement
+     */
+    public function setClasses($classes)
+    {
+        $this->classes = $classes;
+
+        return $this;
+    }
+
+    /**
+     * Get classes
+     *
+     * @return string 
+     */
+    public function getClasses()
+    {
+        return $this->classes;
+    }
+
+    /**
+     * Set domid
+     *
+     * @param string $domid
+     * @return NavigationElement
+     */
+    public function setDomid($domid)
+    {
+        $this->domid = $domid;
+
+        return $this;
+    }
+
+    /**
+     * Get domid
+     *
+     * @return string 
+     */
+    public function getDomid()
+    {
+        return $this->domid;
     }
 }
