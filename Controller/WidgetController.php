@@ -12,20 +12,22 @@ class WidgetController extends Controller
         $em = $this->getDoctrine()->getManager();
         $widgetType = $widget->getType();
 
-
-        if($widget->getEntity() && $entity = $em->getRepository($widgetType->getModel())->find($widget->getEntity())){
+        if(!$widgetType->getModel()){
+            return $this->render($widgetType->getTemplate(),array('widget'=>$widget,'entity'=>$entity));
+        }
+        elseif($widget->getEntity() && $entity = $em->getRepository($widgetType->getModel())->find($widget->getEntity())){
 
             return $this->render($widgetType->getTemplate(),array('widget'=>$widget,'entity'=>$entity));
-          } else {
+        } else {
             return new Response("");
-          }
+        }
 
     }
 
     public function renderRepeaterWidgetAction($widget,$entity)
     {
 
-            return $this->render($widget->getTemplate(),array('widget'=>$widget,'entity'=>$entity));
+        return $this->render($widget->getTemplate(),array('widget'=>$widget,'entity'=>$entity));
 
 
     }
