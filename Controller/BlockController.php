@@ -13,6 +13,8 @@ class BlockController extends Controller
     public function renderBlockAction($page, $blockname)
     {
         $em = $this->getDoctrine()->getManager();
+
+
         if($block = $em->getRepository('BrixCoreBundle:Block')->findOneBy(array('page'=>$page,'name'=>$blockname))){
 
         } else {
@@ -52,6 +54,7 @@ class BlockController extends Controller
     private function renderBlock($block){
       $em = $this->getDoctrine()->getManager();
 
+
       if($block->getRepeater()){
 
         $qb = $repository = $em->getRepository($block->getRepeaterWidget()->getModel())->createQueryBuilder('w');
@@ -65,9 +68,18 @@ class BlockController extends Controller
       $subblocks = $block->getSubblocks();
 
       if($block->getType()){
-          return $this->render($block->getType()->getTemplate(), array('subblock'=>false,'block'=>$block,'children' => $block->getChildren(), 'ngAdmin'=>$this->get('security.context')->isGranted('ROLE_ADMIN')));
+          return $this->render($block->getType()->getTemplate(), array('subblock'=>false,'block'=>$block,'children' => $block->getChildren(), 'ngAdmin'=>$this->isAdminMode()));
       }
 
-      return $this->render('BrixCoreBundle:Default:block.html.twig', array('block'=>$block,'children' => $block->getChildren(), 'ngAdmin'=>$this->get('security.context')->isGranted('ROLE_ADMIN')));
+      return $this->render('BrixCoreBundle:Default:block.html.twig', array('block'=>$block,'children' => $block->getChildren(), 'ngAdmin'=>$this->isAdminMode()));
+    }
+
+    private function isAdminMode(){
+        $session = $this->getRequest()->getSession();
+
+        $admin = $this->get('security.context')->isGranted('ROLE_ADMIN');
+        $adminsession = $session->get('adminmode',false);
+
+        return ($admin && $adminsession);
     }
 }

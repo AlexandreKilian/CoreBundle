@@ -14,6 +14,12 @@ class PageController extends Controller
         $locale = $request->getLocale();
         $em = $this->getDoctrine()->getManager();
 
+        if($request->get('switchadminmode')){
+            $session = $request->getSession();
+            $session->set('adminmode',!$session->get('adminmode',false));
+        }
+
+
         if(!$url){
             return $this->forward('BrixCoreBundle:Page:loadHomePage');
         }
