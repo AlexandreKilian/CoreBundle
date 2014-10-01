@@ -13,7 +13,7 @@ class WidgetController extends Controller
         $widgetType = $widget->getType();
 
         if(!$widgetType->getModel()){
-            return $this->render($widgetType->getTemplate(),array('widget'=>$widget,'entity'=>$entity));
+            return $this->render($widgetType->getTemplate(),array('widget'=>$widget));
         }
         elseif($widget->getEntity() && $entity = $em->getRepository($widgetType->getModel())->find($widget->getEntity())){
 
