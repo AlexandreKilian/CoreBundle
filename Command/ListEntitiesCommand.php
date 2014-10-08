@@ -26,7 +26,6 @@ class ListEntitiesCommand extends ContainerAwareCommand
 
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-        // die(var_dump($config['templates']));
 
         $entities = Array();
 
@@ -38,10 +37,10 @@ class ListEntitiesCommand extends ContainerAwareCommand
 
           if(!$widget = $em->getRepository("BrixCoreBundle:WidgetType")->findOneBy(array("name"=>$name)))$widget = new WidgetType();
 
-          $widget->setName($name);
+          $widget->setName(isset($data['title'])?$data['title']:$name);
           $widget->setTemplate($data['template']);
+          if(isset($data['entity']))$widget->setModel($entities[$data['entity']]['class']);
 
-          $widget->setModel($entities[$data['entity']]['class']);
           $em->persist($widget);
         }
 
