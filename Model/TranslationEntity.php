@@ -7,20 +7,22 @@ use Brix\CoreBundle\Entity\Block;
 use JMS\Serializer\Annotation as JMS;
 
 
-
-abstract class Translatable
+/**
+ *  @ORM\MappedSuperclass
+ */
+abstract class TranslationEntity
 {
 
-    abstract private $original;
+
     /**
     *
-    * @ORM\ManyToOne(targetEntity="Language")
+    * @ORM\ManyToOne(targetEntity="Brix\CoreBundle\Entity\Language")
     * @ORM\JoinColumn(name="language_id", nullable=true)
     * @JMS\Accessor(getter="getLanguageArray")
     * @JMS\Groups({"details","list"})
     * @JMS\Type("array")
     */
-    private $language;
+    protected $language;
 
     /**
     * Set language
@@ -45,8 +47,17 @@ abstract class Translatable
       return $this->language;
     }
 
+    public function getLanguageArray(){
+        if($this->getLanguage())return $this->getLanguage()->toArray();
+        return null;
+
+    }
+
     public function __toString(){
       return strval($this->getId());
     }
+
+    abstract function setOriginal(\Brix\CoreBundle\Model\TranslationEntity $original = null);
+    abstract function getOriginal();
 
 }

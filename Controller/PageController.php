@@ -26,14 +26,16 @@ class PageController extends Controller
 
 
         $language = $em->getRepository('BrixCoreBundle:Language')->findOneBy(array('locale'=>$locale));
+        $repo = $em->getRepository("BrixCoreBundle:Page");
+        $repo->setLocale($language);
 
-        if($page = $em->getRepository("BrixCoreBundle:Page")->findOneBy(array('url'=>$url,'language'=>$language))){
+
+
+        if($page = $repo->findOneBy(array('url'=>$url))){
 
             return $this->renderPage($page);
 
 
-        } elseif($page = $em->getRepository("BrixCoreBundle:Page")->findOneBy(array('url'=>$url,'original'=>null))){
-            return $this->renderPage($page);
         } else{
             return $this->go404($url);
             return $this->forward('BrixCoreBundle:Page:forofour', array(
@@ -61,23 +63,25 @@ class PageController extends Controller
         $locale = $request->getLocale();
         $language = $em->getRepository('BrixCoreBundle:Language')->findOneBy(array('locale'=>$locale));
 
-        if($page = $em->getRepository("BrixCoreBundle:Page")->findOneBy(array('url'=>null,'language'=>$language))){
-            return $this->renderpage($page);
-        } elseif($page = $em->getRepository("BrixCoreBundle:Page")->findOneBy(array('url'=>null))){
-            return $this->renderpage($page);
+        $repo = $em->getRepository("BrixCoreBundle:Page");
+        $repo->setLocale($language);
+
+
+        if($page = $repo->findOneBy(array('url'=>null))){
+            return $this->renderPage($page);
         }else{
             return $this->go404();
         }
     }
 
-    private function go404($url = null){
+    private function go404($url = ""){
         if (false === $this->get('security.context')->isGranted('ROLE_ADMIN') || !class_exists('Brix\AdminBundle\BrixAdminBundle')) {
             return $this->forward('BrixCoreBundle:Page:forofour', array("url"=>$url));
         }
         return $this->forward('BrixAdminBundle:Page:newPage', array("url"=>$url));
     }
 
-    public function forofourAction($url = null){
-        return $this->render('BrixCoreBundle:Default:404.html.twig');
+    public function forofourAction($url = ""){
+        return $this->render('BrixCoreBundle:Default:404.html.twig', array("url"=>$url));
     }
 }

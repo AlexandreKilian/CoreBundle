@@ -4,14 +4,15 @@ namespace Brix\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
+use Brix\CoreBundle\Model\TranslationEntity;
 
 /**
 * Page
 *
 * @ORM\Table(name="brix_core_page")
-* @ORM\Entity
+* @ORM\Entity(repositoryClass="Brix\CoreBundle\Entity\Repository\TranslationRepository")
 */
-class Page
+class Page extends TranslationEntity
 {
   /**
   * @var integer
@@ -63,15 +64,6 @@ class Page
   */
   private $original;
 
-  /**
-  *
-  * @ORM\ManyToOne(targetEntity="Language")
-  * @ORM\JoinColumn(name="language_id", nullable=true)
-  * @JMS\Accessor(getter="getLanguageArray")
-  * @JMS\Groups({"details","list"})
-  * @JMS\Type("array")
-  */
-  private $language;
 
 
   /**
@@ -315,7 +307,7 @@ class Page
   * @param \Brix\CoreBundle\Entity\Page $original
   * @return Page
   */
-  public function setOriginal(\Brix\CoreBundle\Entity\Page $original = null)
+  public function setOriginal(\Brix\CoreBundle\Model\TranslationEntity $original = null)
   {
     $this->original = $original;
 
@@ -332,18 +324,6 @@ class Page
     return $this->original;
   }
 
-  /**
-  * Set language
-  *
-  * @param \Brix\CoreBundle\Entity\Language $language
-  * @return Page
-  */
-  public function setLanguage(\Brix\CoreBundle\Entity\Language $language = null)
-  {
-    $this->language = $language;
-
-    return $this;
-  }
 
   /**
   * Get language
@@ -399,9 +379,4 @@ class Page
         return $this->isHomepage;
     }
 
-    public function getLanguageArray(){
-        if($this->getLanguage())return $this->getLanguage()->toArray();
-        return null;
-
-    }
 }
