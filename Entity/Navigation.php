@@ -32,14 +32,14 @@ class Navigation
     /**
      * @var string
      *
-     * @ORM\Column(name="classes", type="string",length=255)
+     * @ORM\Column(name="classes", type="string",length=255, nullable=true)
      */
     private $classes;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="dom_id", type="string",length=255)
+     * @ORM\Column(name="dom_id", type="string",length=255, nullable=true)
      */
     private $domid;
 
@@ -224,7 +224,7 @@ class Navigation
     /**
      * Get elements
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getElements()
     {

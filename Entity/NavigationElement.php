@@ -47,7 +47,7 @@ class NavigationElement
     /**
      * @var integer
      *
-     * @ORM\Column(name="position", type="integer")
+     * @ORM\Column(name="position", type="integer", nullable=true)
      */
     private $position;
 
@@ -76,14 +76,14 @@ class NavigationElement
     /**
      * @var string
      *
-     * @ORM\Column(name="classes", type="string",length=255)
+     * @ORM\Column(name="classes", type="string",length=255, nullable=true)
      */
     private $classes;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="dom_id", type="string",length=255)
+     * @ORM\Column(name="dom_id", type="string",length=255, nullable=true)
      */
     private $domid;
 
@@ -337,7 +337,7 @@ class NavigationElement
     /**
      * Get classes
      *
-     * @return string 
+     * @return string
      */
     public function getClasses()
     {
@@ -360,7 +360,7 @@ class NavigationElement
     /**
      * Get domid
      *
-     * @return string 
+     * @return string
      */
     public function getDomid()
     {
