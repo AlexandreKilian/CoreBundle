@@ -54,7 +54,7 @@ class PageController extends Controller
 
             return $this->render($pageType->getTemplate(),array('page'=>$page,'entity'=>$entity));
         }
-        return $this->render($pageType->getTemplate(),array('page'=>$page));
+        return $this->render($pageType->getTemplate(),array('page'=>$page,'admin'=>$this->isAdminMode()));
     }
 
     public function loadHomePageAction(Request $request){
@@ -83,5 +83,14 @@ class PageController extends Controller
 
     public function forofourAction($url = ""){
         return $this->render('BrixCoreBundle:Default:404.html.twig', array("url"=>$url));
+    }
+
+    private function isAdminMode(){
+        $session = $this->getRequest()->getSession();
+
+        $admin = $this->get('security.context')->isGranted('ROLE_ADMIN');
+        $adminsession = $session->get('adminmode',false);
+
+        return ($admin && $adminsession);
     }
 }
