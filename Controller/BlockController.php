@@ -19,13 +19,13 @@ class BlockController extends Controller
 
         } else {
 
-          $block = new Block();
-          $block->setPage($page);
-          $block->setName($blockname);
-          $em->persist($block);
-          $em->flush();
+            $block = new Block();
+            $block->setPage($page);
+            $block->setName($blockname);
+            $em->persist($block);
+            $em->flush();
 
-          // return new Response("");
+            // return new Response("");
         }
         return $this->renderBlock($block);
     }
@@ -52,26 +52,25 @@ class BlockController extends Controller
 
 
     private function renderBlock($block){
-      $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
+        if($block->getRepeater()){
 
-      if($block->getRepeater()){
+            $qb = $repository = $em->getRepository($block->getRepeaterWidget()->getModel())->createQueryBuilder('w');
+            $query = $qb->setMaxResults($block->getRepeaterLimit())->getQuery();
+            $entities = $query->getResult();
 
-        $qb = $repository = $em->getRepository($block->getRepeaterWidget()->getModel())->createQueryBuilder('w');
-        $query = $qb->setMaxResults($block->getRepeaterLimit())->getQuery();
-        $entities = $query->getResult();
+            return $this->render('BrixCoreBundle:Default:repeater_block.html.twig', array('widget'=>$block->getRepeaterWidget(),'entities' => $entities));
+        }
 
-        return $this->render('BrixCoreBundle:Default:repeater_block.html.twig', array('widget'=>$block->getRepeaterWidget(),'entities' => $entities));
-      }
+        $widgets = $block->getWidgets();
+        $subblocks = $block->getSubblocks();
 
-      $widgets = $block->getWidgets();
-      $subblocks = $block->getSubblocks();
+        if($block->getType()){
+            return $this->render($block->getType()->getTemplate(), array('subblock'=>false,'block'=>$block,'children' => $block->getChildren(), 'ngAdmin'=>$this->isAdminMode()));
+        }
 
-      if($block->getType()){
-          return $this->render($block->getType()->getTemplate(), array('subblock'=>false,'block'=>$block,'children' => $block->getChildren(), 'ngAdmin'=>$this->isAdminMode()));
-      }
-
-      return $this->render('BrixCoreBundle:Default:block.html.twig', array('block'=>$block,'children' => $block->getChildren(), 'ngAdmin'=>$this->isAdminMode()));
+        return $this->render('BrixCoreBundle:Default:block.html.twig', array('block'=>$block,'children' => $block->getChildren(), 'ngAdmin'=>$this->isAdminMode()));
     }
 
     private function isAdminMode(){
