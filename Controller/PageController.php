@@ -27,7 +27,6 @@ class PageController extends Controller
 
         $language = $em->getRepository('BrixCoreBundle:Language')->findOneBy(array('locale'=>$locale));
         $repo = $em->getRepository("BrixCoreBundle:Page");
-        // $repo->setLocale($language);
 
 
 
