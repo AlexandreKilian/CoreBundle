@@ -27,7 +27,7 @@ class PageController extends Controller
 
         $language = $em->getRepository('BrixCoreBundle:Language')->findOneBy(array('locale'=>$locale));
         $repo = $em->getRepository("BrixCoreBundle:Page");
-        $repo->setLocale($language);
+        // $repo->setLocale($language);
 
 
 
@@ -38,7 +38,6 @@ class PageController extends Controller
                     'url' => $transpage->getUrl()
                 ));
             }
-
             return $this->renderPage($page);
 
 

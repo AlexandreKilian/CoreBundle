@@ -33,6 +33,7 @@ class NavigationController extends Controller
     }
 
     private function renderNavigation($navigation){
+                
         return $this->render('BrixCoreBundle:Default:navigation.html.twig',array('navigation'=>$navigation));
     }
 
