@@ -34,8 +34,10 @@ class PageController extends Controller
         if($page = $repo->findOneBy(array('url'=>$url))){
 
             if($page->getLanguage()->getId() != $language->getId() && (($transpage = $repo->findOneBy(array("original"=>$page,"language"=>$language))) || ($transpage = $repo->findOneBy(array("id"=>$page->getOriginal()->getId(),"language"=>$language))))){
-                return  $this->forward('BrixCoreBundle:Page:loadPage', array(
-                    'url' => $transpage->getUrl()
+                return  $this->redirect(
+                    $this->generateUrl('brix_page',array(
+                        'url' => $transpage->getUrl()
+                    )
                 ));
             }
             return $this->renderPage($page);
