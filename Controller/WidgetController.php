@@ -27,7 +27,7 @@ class WidgetController extends Controller
     public function renderRepeaterWidgetAction($widget,$entity)
     {
 
-        return $this->render($widget->getTemplate(),array('widget'=>$widget,'entity'=>$entity));
+        return $this->render($widget->getTemplate(),array('widget'=>$widget,'entity'=>$entity,'admin'=>$this->isAdminMode()));
 
 
     }
