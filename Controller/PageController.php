@@ -30,26 +30,26 @@ class PageController extends Controller
 
 
 
-        if($page = $repo->findOneBy(array('url'=>$url,'language'=>$language))){
+        if($page = $repo->findOneBy(array('url'=>$url,'language'=>$language))){ //CHECK IF THERE IS A PAGE WITH THIS URL IN THIS LANGUAGE
             return $this->renderPage($page);
-        } elseif($page = $repo->findOneBy(array('url'=>$url))){
+        } else{
+            if($page = $repo->findOneBy(array('url'=>$url))){ //LOOK FOR ANY PAGE WITH THIS URL
 
+                if($page->getOriginal()){ //IF THIS IS A TRANSLATION, CHECK THE ORIGINAL
+                    $page = $page->getOriginal();
+                }
 
-            if($page->getLanguage()->getId() != $language->getId() && (($transpage = $repo->findOneBy(array("original"=>$page,"language"=>$language))) || ($page->getOriginal() && $transpage = $repo->findOneBy(array("id"=>$page->getOriginal()->getId(),"language"=>$language))))){
-                return  $this->redirect(
+                $repo->setLocale($language);
+                if($transpage = $repo->find($page->getId())){ //LOOK FOR TRANSLATION OF THIS PAGE
+                    return  $this->redirect(
                     $this->generateUrl('brix_page',array(
                         'url' => $transpage->getUrl()
-                    )
-                ));
+                        )
+                    ));
+                }
             }
-            return $this->renderPage($page);
-
-
-        } else{
             return $this->go404($url);
-            return $this->forward('BrixCoreBundle:Page:forofour', array(
-                'url'  => $url,
-            ));
+
         }
 
 

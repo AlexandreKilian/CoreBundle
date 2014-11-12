@@ -25,11 +25,15 @@ class TranslationRepository extends EntityRepository {
             ->andWhere('tra.language = ?2')
             ->setParameter(1,$id)
             ->setParameter(2,$this->locale)
+            ->setMaxResults(1)
             ;
             $query = $qb->getQuery();
 
-            if($result = $query->getSingleResult()){
+            if($result = $query->getResult()){
+                return $result[0];
                 return $result;
+            } else{
+                return false;
             }
 
         }
