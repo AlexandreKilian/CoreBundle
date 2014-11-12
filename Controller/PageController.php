@@ -30,7 +30,10 @@ class PageController extends Controller
 
 
 
-        if($page = $repo->findOneBy(array('url'=>$url))){
+        if($page = $repo->findOneBy(array('url'=>$url,'language'=>$language))){
+            return $this->renderPage($page);
+        } elseif($page = $repo->findOneBy(array('url'=>$url))){
+
 
             if($page->getLanguage()->getId() != $language->getId() && (($transpage = $repo->findOneBy(array("original"=>$page,"language"=>$language))) || ($page->getOriginal() && $transpage = $repo->findOneBy(array("id"=>$page->getOriginal()->getId(),"language"=>$language))))){
                 return  $this->redirect(
