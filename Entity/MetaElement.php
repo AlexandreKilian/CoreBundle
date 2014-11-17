@@ -36,9 +36,8 @@ class MetaElement
     private $content;
 
     /**
-     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Page", inversedBy="metaelements")
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="metaelements", cascade={"all"})
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
      */
     private $page;
