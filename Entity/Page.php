@@ -35,6 +35,14 @@ class Page extends TranslationEntity
   /**
   * @var string
   *
+  * @ORM\Column(name="title", type="string", length=255, nullable=true)
+  * @JMS\Groups({"details","list"})
+  */
+  private $title;
+
+  /**
+  * @var string
+  *
   * @ORM\Column(name="url", type="string", length=255, nullable=true)
   * @JMS\Groups({"details","list"})
   */
@@ -47,6 +55,15 @@ class Page extends TranslationEntity
   * @JMS\Groups({"details","list"})
   */
   private $children;
+
+
+  /**
+  * @var string
+  *
+  * @ORM\OneToMany(targetEntity="MetaElement", mappedBy="page")
+  * @JMS\Groups({"details","list"})
+  */
+  private $metaelements;
 
   /**
   *
@@ -379,4 +396,76 @@ class Page extends TranslationEntity
         return $this->isHomepage;
     }
 
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Page
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        if(!$this->title){
+            return $this->getName();
+        }
+        return $this->title;
+    }
+
+    /**
+     * Add metaelements
+     *
+     * @param \Brix\CoreBundle\Entity\MetaElement $metaelements
+     * @return Page
+     */
+    public function addMetaelement(\Brix\CoreBundle\Entity\MetaElement $metaelements)
+    {
+        $this->metaelements[] = $metaelements;
+
+        return $this;
+    }
+
+    /**
+     * Remove metaelements
+     *
+     * @param \Brix\CoreBundle\Entity\MetaElement $metaelements
+     */
+    public function removeMetaelement(\Brix\CoreBundle\Entity\MetaElement $metaelements)
+    {
+        $this->metaelements->removeElement($metaelements);
+    }
+
+    /**
+     * Get metaelements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMetaelements()
+    {
+        return $this->metaelements;
+    }
+
+    /**
+     * Set language
+     *
+     * @param \Brix\CoreBundle\Entity\Language $language
+     * @return Page
+     */
+    public function setLanguage(\Brix\CoreBundle\Entity\Language $language = null)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
 }

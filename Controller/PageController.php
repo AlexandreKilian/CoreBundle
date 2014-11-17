@@ -94,6 +94,11 @@ class PageController extends Controller
         return null;
     }
 
+
+    public function renderMetaAction($page){
+        return $this->render('BrixCoreBundle:Default:meta.html.twig', array("page"=>$page));
+    }
+
     private function renderPage($page){
         $pageType = $page->getType();
 
