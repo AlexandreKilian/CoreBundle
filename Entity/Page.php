@@ -60,7 +60,7 @@ class Page extends TranslationEntity
   /**
   * @var string
   *
-  * @ORM\OneToMany(targetEntity="MetaElement", mappedBy="page")
+  * @ORM\OneToMany(targetEntity="MetaElement", mappedBy="page", cascade={"all"})
   * @JMS\Groups({"details","list"})
   */
   private $metaelements;
@@ -431,6 +431,7 @@ class Page extends TranslationEntity
      */
     public function addMetaelement(\Brix\CoreBundle\Entity\MetaElement $metaelements)
     {
+        $metaelement->setPage($this);
         $this->metaelements[] = $metaelements;
 
         return $this;

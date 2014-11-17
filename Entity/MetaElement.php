@@ -37,7 +37,7 @@ class MetaElement
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Page", inversedBy="metaelements", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="metaelements")
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
      */
     private $page;
