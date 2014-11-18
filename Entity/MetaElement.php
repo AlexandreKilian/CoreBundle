@@ -121,4 +121,8 @@ class MetaElement
     {
         return $this->page;
     }
+
+    public function __toString(){
+        return $this->getProperty();
+    }
 }
