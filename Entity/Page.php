@@ -431,7 +431,7 @@ class Page extends TranslationEntity
      */
     public function addMetaelement(\Brix\CoreBundle\Entity\MetaElement $metaelements)
     {
-        $metaelement->setPage($this);
+        $metaelements->setPage($this);
         $this->metaelements[] = $metaelements;
 
         return $this;
